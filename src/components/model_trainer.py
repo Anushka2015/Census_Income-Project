@@ -1,10 +1,7 @@
+#Basic Import
 import pandas as pd
 import numpy as np
-from sklearn.datasets import make_classification
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score,confusion_matrix
-
 from src.exception import CustomException
 from src.logger import logging
 
@@ -17,7 +14,7 @@ import os
 
 @dataclass 
 class ModelTrainerConfig:
-    trained_model_file_path = os.path.join('artifacts','model.pkl')
+    trained_model_file1_path = os.path.join('artifacts','model.pkl')
 
 
 class ModelTrainer:
@@ -34,9 +31,7 @@ class ModelTrainer:
                 test_array[:,-1]
             )
 
-            model={
-                    'LogisticRegression':LogisticRegression()
-            }
+            model={"LinearRegression":LogisticRegression()}
             
             
             model_report:dict=evaluate_model(X_train,y_train,X_test,y_test,model)
@@ -58,7 +53,7 @@ class ModelTrainer:
             logging.info(f'Best Model Found , Model Name : {model_name} , accuracy_score : {accuracy_score}')
 
             save_object(
-                 file_path=self.model_trainer_config.trained_model_file_path,
+                 file1_path=self.model_trainer_config.trained_model_file1_path,
                  obj=best_model
             )
           

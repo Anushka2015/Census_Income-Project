@@ -31,38 +31,38 @@ class PredictPipeline:
 
 class CustomData:
     def __init__(self,
-                 Age :int,
+                 Age:int,
                  workclass:str,
-                 fnlwgt :int,
+                 fnlwgt:int,
                  education :str,
-                 educationnum:int,
+                 education_num:int,
                  relationship:str,
-                 maritalstatus:str,
+                 marital_status:str,
                  occupation :str,
                  race:str,
                  sex:str,
-                 capitalgain:int,
-                 capitalloss:int,
-                 hoursperweek  :int,
-                 nativecountry:str,
-                 makesover :int):
+                 capital_gain:int,
+                 capital_loss:int,
+                 hours_per_week  :int,
+                 native_country:str,
+                 makes_over :int):
         
         
         self.Age=Age
         self.workclass=workclass
         self.fnlwgt=fnlwgt
         self.education =education 
-        self.educationnum=educationnum
+        self.education_num=education_num
         self.relationship=relationship
-        self.maritalstatus = maritalstatus
+        self.marital_status = marital_status
         self.occupation= occupation
         self.race = race
         self.sex = sex
-        self.capitalgain = capitalgain
-        self.capitalloss = capitalloss
-        self.hoursperweek= hoursperweek
-        self.nativecountry= nativecountry
-        self.makesover= makesover
+        self.capital_gain = capital_gain
+        self.capital_loss = capital_loss
+        self.hours_per_week= hours_per_week
+        self.native_country= native_country
+        self.makes_over= makes_over
 
     def get_data_as_dataframe(self):
         try:
@@ -71,17 +71,17 @@ class CustomData:
                 'workclass':[self.workclass],
                 'fnlwgt':[self.fnlwgt],
                 'education ':[self.education ],
-                'education-num':[self.educationnum],
+                'education-num':[self.education_num],
                 'relationship':[self.relationship],
-                'marital-status':[self.maritalstatus],
+                'marital-status':[self.marital_status],
                 'occupation':[self.occupation],
                 'race':[self.race],
                 'sex':[self.sex],
-                'capital-gain':[self.capitalgain],
-                'self.capital-loss':[self.capitalloss ],
-                'self.hours-per-week':[self.hoursperweek],
-                'native-country':[self.nativecountry],
-                'makes over':[self.makesover]
+                'capital-gain':[self.capital_gain],
+                'self.capital-loss':[self.capital_loss ],
+                'self.hours-per-week':[self.hours_per_week],
+                'native-country':[self.native_country],
+                'makes over':[self.makes_over]
             }
             df = pd.DataFrame(custom_data_input_dict)
             logging.info('Dataframe Gathered')

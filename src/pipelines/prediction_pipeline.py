@@ -31,26 +31,22 @@ class PredictPipeline:
 
 class CustomData:
     def __init__(self,
-                 Age:int,
+                 Age:float,
                  workclass:str,
-                 fnlwgt:int,
                  education :str,
-                 education_num:int,
+                 education_num:float,
                  relationship:str,
                  marital_status:str,
                  occupation :str,
                  race:str,
                  sex:str,
-                 capital_gain:int,
-                 capital_loss:int,
-                 hours_per_week  :int,
-                 native_country:str,
-                 makes_over :int):
+                 capital_gain:float,
+                 hours_per_week  :float,
+                 native_country:str):
         
         
         self.Age=Age
         self.workclass=workclass
-        self.fnlwgt=fnlwgt
         self.education =education 
         self.education_num=education_num
         self.relationship=relationship
@@ -59,18 +55,16 @@ class CustomData:
         self.race = race
         self.sex = sex
         self.capital_gain = capital_gain
-        self.capital_loss = capital_loss
         self.hours_per_week= hours_per_week
         self.native_country= native_country
-        self.makes_over= makes_over
+    
 
     def get_data_as_dataframe(self):
         try:
             custom_data_input_dict = {
                 'Age':[self.Age],
                 'workclass':[self.workclass],
-                'fnlwgt':[self.fnlwgt],
-                'education ':[self.education ],
+                'education':[self.education ],
                 'education-num':[self.education_num],
                 'relationship':[self.relationship],
                 'marital-status':[self.marital_status],
@@ -78,10 +72,9 @@ class CustomData:
                 'race':[self.race],
                 'sex':[self.sex],
                 'capital-gain':[self.capital_gain],
-                'self.capital-loss':[self.capital_loss ],
-                'self.hours-per-week':[self.hours_per_week],
+                'hours-per-week':[self.hours_per_week],
                 'native-country':[self.native_country],
-                'makes over':[self.makes_over]
+                
             }
             df = pd.DataFrame(custom_data_input_dict)
             logging.info('Dataframe Gathered')

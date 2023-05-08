@@ -20,6 +20,6 @@ setup(
     version='0.0.1',
     author='Anushka Srivastava',
     author_email='anushka.asthana1983@gmail.com',
-    install_requires=["pandas",["numpy"],["flask"],["seaborn"],["scikit-learn"],["datetime"]],
+    install_requires=["pandas","numpy","flask","seaborn","scikit-learn","datetime"],
     packages=find_packages()
 )

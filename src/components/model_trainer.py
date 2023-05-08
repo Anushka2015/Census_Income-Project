@@ -1,62 +1,54 @@
-#Basic Import
-import pandas as pd
+import sys
+import os
 import numpy as np
+import pandas as pd
 from sklearn.linear_model import LogisticRegression
+#from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import accuracy_score,confusion_matrix,classification_report
 from src.exception import CustomException
 from src.logger import logging
 
 from src.utils import save_object
-from src.utils import evaluate_model
-
 from dataclasses import dataclass
-import sys
-import os
 
-@dataclass 
-class ModelTrainerConfig:
-    trained_model_file1_path = os.path.join('artifacts','model.pkl')
 
+@dataclass
+class ModelTrainerconfig:
+    trained_model_file_path = os.path.join('artifacts','model.pkl')
 
 class ModelTrainer:
     def __init__(self):
-        self.model_trainer_config = ModelTrainerConfig()
+        self.model_trainer_config = ModelTrainerconfig()
 
-    def initate_model_training(self,train_array,test_array):
+    def initiate_model_training(self,train_array,test_array):
         try:
-            logging.info('Splitting Dependent and Independent variables from train and test data')
-            X_train, y_train, X_test, y_test = (
+            logging.info('Splitting Independent and dependent variables form train and test array')
+            X_train, y_train, X_test, y_test =(
                 train_array[:,:-1],
                 train_array[:,-1],
                 test_array[:,:-1],
                 test_array[:,-1]
             )
 
-            model={"LinearRegression":LogisticRegression()}
-            
-            
-            model_report:dict=evaluate_model(X_train,y_train,X_test,y_test,model)
-            print(model_report)
+            model = LogisticRegression(penalty='l2',C=0.1,max_iter=100)
+            model.fit(X_train,y_train)
+
+            y_pred = model.predict(X_test)
+            test_score = accuracy_score(y_test,y_pred)
+            report = classification_report(y_test,y_pred)
+
+            print(f'Model Name: Logistic Regression, Accuracy Score: {test_score}')
+            logging.info(f'Model Name: Logistic Regression, Accuracy Score: {test_score}')
+
             print('\n====================================================================================\n')
-            logging.info(f'Model Report : {model_report}')
+            print(f'classification Report: {report}')
 
-            # To get accuracy_score from dictionary 
-            accuracy_score = max(sorted(accuracy_score.values()))
-
-            model_name = list(model_report.keys())[
-                list(model_report.values()).index(accuracy_score)
-            ]
-            
-            best_model = model[model_name]
-
-            print(f'Model Name : {model_name} , accuracy_score : {accuracy_score}')
-            print('\n====================================================================================\n')
-            logging.info(f'Best Model Found , Model Name : {model_name} , accuracy_score : {accuracy_score}')
+            logging.info(f'classification Report: {report}')
 
             save_object(
-                 file1_path=self.model_trainer_config.trained_model_file1_path,
-                 obj=best_model
+                file_path=self.model_trainer_config.trained_model_file_path,
+                obj = model
             )
-          
 
         except Exception as e:
             logging.info('Exception occured at Model Training')
